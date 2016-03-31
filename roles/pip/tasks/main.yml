@@ -1,0 +1,13 @@
+---
+- name: ensure epel satellite channel is available
+  command: yum repolist
+  register: repos
+  failed_when: '"epel" not in repos.stdout'
+  changed_when: false
+  tags: pip
+
+- name: install python-pip
+  yum:
+    name: python-pip
+    state: present
+  tags: pip

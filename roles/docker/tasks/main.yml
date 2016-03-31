@@ -1,0 +1,40 @@
+---
+- include: lvm.yml
+  when: lvm
+
+- name: make sure docker is installed
+  yum:
+    name: 'docker-{{ docker_version }}'
+    state: present
+  notify: restart docker
+  tags: docker
+
+- name: configure docker
+  template:
+    src: docker.j2
+    dest: /etc/sysconfig/docker
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart docker
+  tags: docker
+
+- name: exectue now all triggered handlers
+  meta: flush_handlers
+  tags: docker
+
+- name: make sure docker is started
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  tags: docker
+
+- name: install docker-compose
+  template:
+    src: docker-compose.j2
+    dest: '{{ docker_compose_path }}'
+    owner: root
+    group: root
+    mode: 0750
+  tags: docker

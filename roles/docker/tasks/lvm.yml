@@ -1,0 +1,40 @@
+---
+- name: verify existing vg
+  command: '/sbin/vgdisplay {{ docker_vgname }}'
+  register: vgcheck
+  failed_when: vgcheck.rc != 0
+  changed_when: false
+  tags: docker
+
+- name: create docker lv
+  lvol:
+    vg: '{{ docker_vgname }}'
+    lv: '{{ docker_lvname }}'
+    size: '{{ docker_min_lvsize }}G'
+    state: present
+  notify: resize filesystem
+  tags: docker
+
+- name: create xfs filesystem
+  filesystem:
+    dev: '/dev/{{ docker_vgname }}/{{ docker_lvname }}'
+    fstype: xfs
+  tags: docker
+
+- name: mount docker volume
+  mount:
+    name: '{{ docker_dir }}'
+    src: '/dev/{{ docker_vgname }}/{{ docker_lvname }}'
+    fstype: xfs
+    state: mounted
+  tags: docker
+
+- name: configure docker
+  template:
+    src: docker-storage-setup.j2
+    dest: /etc/sysconfig/docker-storage-setup
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart docker
+  tags: docker

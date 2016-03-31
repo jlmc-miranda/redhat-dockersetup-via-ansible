@@ -1,0 +1,50 @@
+---
+- hosts: localhost
+
+  connection: local
+
+  vars_prompt:
+    - name: proxy
+      prompt: 'Do you use a proxy for internet connections?'
+      default: false
+      private: no
+    
+    - name: lvm
+      prompt: 'Do you use LVM?'
+      default: false
+      private: no
+
+    - name: docker_vgname
+      prompt: 'Enter the vgname'
+      default: none
+      private: no
+
+    - name: docker_lvname
+      prompt: 'Enter the Docker LV name'
+      default: none
+      private: no
+
+    - name: docker_min_lvsize
+      prompt: 'Enter the Docker LV size'
+      default: 2
+      private: no
+    
+    - name: docker_min_thinpool_lvsize
+      prompt: 'Enter the Docker Pool size'
+      default: 2
+      private: no
+
+    - name: proxy_server
+      prompt: 'Enter your proxy server'
+      default: none
+      private: no
+    
+    - name: proxy_port
+      prompt: 'Enter your proxy port'
+      default: none
+      private: no
+
+  roles:
+    - pip
+    - ansible
+    - docker

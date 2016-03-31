@@ -1,0 +1,10 @@
+---
+- name: restart docker
+  service:
+    name: docker
+    state: restarted
+  tags: docker
+
+- name: resize filesystem
+  command: 'xfs_growfs /dev/{{ docker_vgname }}/{{ docker_lvname }}'
+  tags: docker

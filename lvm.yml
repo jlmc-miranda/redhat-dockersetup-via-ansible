@@ -1,0 +1,25 @@
+---
+- hosts: localhost
+
+  connection: local
+
+  vars_prompt:
+    - name: docker_vgname
+      prompt: 'Enter the vgname'
+      private: no
+      when: lvm
+
+    - name: docker_lvname
+      prompt: 'Enter the Docker LV name'
+      private: no
+
+    - name: docker_min_lvsize
+      prompt: 'Enter the Docker LV size'
+      default: 2
+      private: no
+    
+    - name: docker_min_thinpool_lvsize
+      prompt: 'Enter the Docker Pool size'
+      default: 2
+      private: no
+  

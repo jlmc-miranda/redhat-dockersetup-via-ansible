@@ -1,0 +1,7 @@
+---
+- name: install ansible package
+  pip:
+    name: ansible
+    state: present
+  environment: '{{ proxy }}'
+  tags: ansible
