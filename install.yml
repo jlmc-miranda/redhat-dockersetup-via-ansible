@@ -5,15 +5,26 @@
 
   vars_prompt:
     - name: proxy
-      prompt: 'Do you use a proxy for internet connections?'
+      prompt: 'Do you use a proxy for internet connections (True/False)?'
       default: false
       private: no
     
     - name: lvm
-      prompt: 'Do you use LVM?'
+      prompt: 'Do you use LVM (True/False)?'
       default: false
       private: no
 
+  tasks:
+    - name: facts
+      set_fact:
+        proxy: '{{ proxy|bool }}'
+        lvm: '{{ lvm|bool }}'
+
+- hosts: localhost
+
+  connection: local
+
+  vars_prompt:
     - name: docker_vgname
       prompt: 'Enter the vgname'
       default: none
@@ -45,6 +56,6 @@
       private: no
 
   roles:
-    - pip
-    - ansible
+#    - pip
+#    - ansible
     - docker

@@ -1,7 +1,23 @@
 ---
-- name: install ansible package
-  pip:
+- name: install ansible via yum
+  yum:
     name: ansible
     state: present
-  environment: '{{ proxy }}'
-  tags: ansible
+  tags :ansible
+
+#- name: install ansible package
+#  pip:
+#    name: ansible
+#    state: present
+#  when: not proxy
+#  tags: ansible
+
+#- name: install ansible package via proxy
+#  pip:
+#    name: ansible
+#    state: present
+#  environment:
+#    http_proxy: 'http://{{ proxy_server }}:{{ proxy_port }}'
+#    https_proxy: 'http://{{ proxy_server }}:{{ proxy_port }}'
+#  when: proxy
+#  tags: ansible

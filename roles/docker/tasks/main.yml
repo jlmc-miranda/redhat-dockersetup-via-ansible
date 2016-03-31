@@ -1,6 +1,15 @@
 ---
-- include: lvm.yml
+- name: include lvm tasks
+  include: lvm.yml
   when: lvm
+  tags: docker
+
+- name: ensure extras satellite channel is available
+  command: yum repolist
+  register: repos
+  failed_when: '"extras" not in repos.stdout'
+  changed_when: false
+  tags: docker
 
 - name: make sure docker is installed
   yum:
