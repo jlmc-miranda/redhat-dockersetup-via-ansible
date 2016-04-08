@@ -13,8 +13,8 @@
 
 - name: make sure docker is installed
   yum:
-    name: 'docker-{{ docker_version }}'
-    state: present
+    name: docker
+    state: latest
   notify: restart docker
   tags: docker
 
@@ -46,4 +46,12 @@
     owner: root
     group: root
     mode: 0750
+  tags: docker
+
+- name: create data dir
+  file:
+    path: /var/lib/docker/data
+    owner: root
+    group: root
+    mode: 755
   tags: docker

@@ -25,7 +25,22 @@ export https_proxy=${http_proxy}
 This will work for `pip` and `git`.
 
 
+#### SSL Interception
+
+If your company intercepts the https connection, it's needed to add the own certificate authority to the trusted store.
+This can be done with the following commands:
+```
+cp <ca.pem> /etc/pki/ca-trust/source/anchors/
+update-ca-trust extract
+```
+
 ### Git Installation
+
+To ignore ceritifcate verification, please use
+```
+export GIT_SSL_NO_VERIFY=true
+```
+
 Install `git` to clone this repo.
 ```
 yum install git

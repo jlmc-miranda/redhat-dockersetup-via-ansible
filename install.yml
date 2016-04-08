@@ -36,12 +36,12 @@
       private: no
 
     - name: docker_min_lvsize
-      prompt: 'Enter the Docker LV size'
+      prompt: 'Enter the Docker LV size in GB'
       default: 2
       private: no
     
     - name: docker_min_thinpool_lvsize
-      prompt: 'Enter the Docker Pool size'
+      prompt: 'Enter the Docker Pool size in GB'
       default: 2
       private: no
 

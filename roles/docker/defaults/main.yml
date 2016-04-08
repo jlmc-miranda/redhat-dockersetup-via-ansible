@@ -3,6 +3,5 @@ docker_vgname: vgdata
 docker_lvname: lvdocker
 docker_min_lvsize: 2
 docker_min_thinpool_lvsize: 2
-docker_version: 1.8.2-10.el7
 docker_compose_path: /usr/local/bin/docker-compose
 docker_compose_version: 1.6.0
