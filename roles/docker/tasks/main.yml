@@ -54,4 +54,5 @@
     owner: root
     group: root
     mode: 755
+    state: directory
   tags: docker
