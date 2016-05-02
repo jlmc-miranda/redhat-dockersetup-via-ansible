@@ -36,7 +36,7 @@ DOCKER_CERT_PATH=/etc/docker
 # To disable, uncomment the line below.
 # LOGROTATE=false
 
-{% if proxy %}
+{% if proxy != "none" %}
 HTTPS_PROXY=http://{{ proxy_server }}:{{ proxy_port }}
 HTTP_PROXY=http://{{ proxy_server }}:{{ proxy_port }}
 {% endif %}
